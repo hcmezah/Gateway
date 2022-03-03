@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: gateway-service
+    #configuración del config-server
+  cloud:
+    config:
+      uri: http://localhost:8090
+      username: nttdata
+      password: nttd4t4
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        #CreditCard-Service
+        - id: credit_card-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/consume-credit/**
+        - id: credit_card-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/credit_card/**
+        #BankAccount-Service
+        - id: bank_account-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/bank_account/**
+        #Customer-Service
+        - id: customer-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/customer/**
+        #Deposit-Service
+        - id: deposit-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/deposit/**
+        - id: deposit-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/bank_transfers/**
+        #Retirement-Service
+        - id: retirement-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/retirement/**
+        #Credit-Service
+        - id: credit_card-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/credit/**
+        - id: credit_card-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/paymentCredit/**
